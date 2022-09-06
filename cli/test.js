@@ -8,11 +8,17 @@ const DEFAULT_ITEM_INSERTED = {
 }
 
 describe('Suite de manipulação de Herois', () => {
-    // it('deve cadastrar um Heroi usando arquivos', async () => {
-    //     const expected = DEFAULT_ITEM_INSERTED
+    before(async () => {
+        await database.post(DEFAULT_ITEM_INSERTED)
+    })
 
-    //     ok(null, expected)
-    // })
+    it('deve cadastrar um Heroi usando arquivos', async () => {
+        const expected = DEFAULT_ITEM_INSERTED
+        const result = await database.post(DEFAULT_ITEM_INSERTED)
+        const [currentHero] = await database.get(DEFAULT_ITEM_INSERTED.id)
+
+        ok(currentHero, expected)
+    })
 
     it('deve pesquisar um Heroi usando arquivos', async () => {
         const expected = DEFAULT_ITEM_INSERTED
