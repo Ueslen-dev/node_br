@@ -46,6 +46,17 @@ class Database {
 
         return dataFilter
     }
+
+    async delete(heroId) {
+        if(!heroId) {
+           return await this.postDataFile([])
+        }
+
+        const data = await this.getDataFile()
+        const dataFiltered = data.filter(({ id }) => id !== heroId)
+
+        return await this.postDataFile(dataFiltered)
+    }
 }
 
 module.exports = new Database()

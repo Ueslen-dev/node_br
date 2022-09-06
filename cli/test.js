@@ -8,9 +8,9 @@ const DEFAULT_ITEM_INSERTED = {
 }
 
 describe('Suite de manipulação de Herois', () => {
-    before(async () => {
-        await database.post(DEFAULT_ITEM_INSERTED)
-    })
+    // before(async () => {
+    //     await database.post(DEFAULT_ITEM_INSERTED)
+    // })
 
     it('deve cadastrar um Heroi usando arquivos', async () => {
         const expected = DEFAULT_ITEM_INSERTED
@@ -23,6 +23,13 @@ describe('Suite de manipulação de Herois', () => {
     it('deve pesquisar um Heroi usando arquivos', async () => {
         const expected = DEFAULT_ITEM_INSERTED
         const [result] = await database.get(expected.id)
+
+        deepEqual(result, expected)
+    })
+
+    it('deve remover um heroi por id', async () => {
+        const expected = true
+        const result = await database.delete(DEFAULT_ITEM_INSERTED.id)
 
         deepEqual(result, expected)
     })
