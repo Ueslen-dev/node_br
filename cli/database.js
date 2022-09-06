@@ -57,6 +57,25 @@ class Database {
 
         return await this.postDataFile(dataFiltered)
     }
+
+    async update(heroId, hero) {
+        if(!heroId) {
+            throw Error('O Heroi não existe')
+         }
+
+        const data = await this.getDataFile()
+        const dataFiltered = data.filter(({ id }) => id !== heroId) 
+
+        const dataUpdated = [
+            ...dataFiltered,
+            {
+                id: heroId,
+                ...hero
+            }
+        ]
+
+        return await this.postDataFile(dataUpdated)
+    }
 }
 
 module.exports = new Database()
