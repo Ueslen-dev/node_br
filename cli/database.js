@@ -33,7 +33,6 @@ class Database {
             }
         ]
 
-
         const result = await this.postDataFile(heroData)
 
         return result
@@ -53,7 +52,7 @@ class Database {
         }
 
         const data = await this.getDataFile()
-        const dataFiltered = data.filter(({ id }) => id !== heroId)
+        const dataFiltered = data.filter(({ id }) => id !== parseInt(heroId))
 
         return await this.postDataFile(dataFiltered)
     }
