@@ -1,6 +1,5 @@
 const ICrud = require('./interfaces/interfaceCrud')
 const Sequelize = require('sequelize')
-const { TEXT } = require('sequelize')
 
 class Postgres extends ICrud {
     constructor() {
@@ -34,6 +33,12 @@ class Postgres extends ICrud {
         })
     }
 
+    async update(id, item) {
+        return await this._heros.update(item, {
+            where: { id: id}
+        })
+    }
+
     async defineModel() {
         this._heros = this._driver.define('heros', {
             id: {
@@ -43,11 +48,11 @@ class Postgres extends ICrud {
                 autoIncrement: true,
             },
             name: {
-                type: TEXT,
+                type: Sequelize.TEXT,
                 required: true,
             },
             power: {
-                type: TEXT,
+                type: Sequelize.TEXT,
                 required: true,
             }
         }, {
