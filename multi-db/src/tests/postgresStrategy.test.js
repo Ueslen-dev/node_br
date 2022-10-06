@@ -12,6 +12,7 @@ describe('Postgres Strategy', () => {
     beforeEach(async () => {
         await context.connect()
     })
+    
     it('Postgres Connection', async () => {
         const result = await context.isConnected()
 
@@ -21,7 +22,17 @@ describe('Postgres Strategy', () => {
     it('cadastrar', async () => {
         const result = await context.create(MOCK_HERO_INSERT)
         delete result.id
-        
+
+        assert.deepEqual(result, MOCK_HERO_INSERT)
+    })
+
+    it('listar', async () => {
+        const [result] = await context.read({
+            name: MOCK_HERO_INSERT.name
+        })
+
+        delete result.id
+
         assert.deepEqual(result, MOCK_HERO_INSERT)
     })
 })
